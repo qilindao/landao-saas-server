@@ -16,7 +16,7 @@ class TenantScope implements Scope
         if (!tenancy()->initialized) {
             return;
         }
-        $builder->where('tenant_id', '=', tenancy()->getTenantKey());
+        $builder->where('tenant_id', '=', tenant()->getTenantKey());
     }
 
     public function extend(Builder $builder)

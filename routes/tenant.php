@@ -33,6 +33,8 @@ Route::name('tenant:')
             $router->post('/role/modify/{id}', 'User\Role@modifyFiled')->where('id', '[0-9]+')->name('role:modifyFiled');//快捷修改
             $router->post('/role/update/auth/{id}', 'User\Role@updateRoleAuth')->where('id', '[0-9]+')->name('role:updateRoleAuth');//更新权限
         });
-
+        Route::fallback(function () {
+            return response()->json(['status' => 'error', 'code' => 404, 'message' => 'Not Found!'], 404);
+        });
     });
 

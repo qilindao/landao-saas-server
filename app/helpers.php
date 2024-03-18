@@ -25,11 +25,9 @@ if (!function_exists('tenant')) {
      */
     function tenant($key = null)
     {
-        dd(app()->bound(TenantModel::class));
         if (!app()->bound(TenantModel::class)) {
             return;
         }
-
         if (is_null($key)) {
             return app(TenantModel::class);
         }

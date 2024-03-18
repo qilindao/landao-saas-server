@@ -43,13 +43,21 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
+    /**
+     * 重新未登录返回值特定json格式
+     * 注意：前端需要设置header { Accept : application/json}
+     * @param $request
+     * @param AuthenticationException $exception
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         return $request->expectsJson()
             ? response([
-                'success' => false,
-                'data' => 'Unauthorize'
-            ])
+                'status' => 'error',
+                'code' => 401,
+                'message' => '请登录',
+            ], 401)
             : redirect('/login');
     }
 }

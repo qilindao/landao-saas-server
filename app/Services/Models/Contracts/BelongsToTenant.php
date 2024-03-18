@@ -21,8 +21,8 @@ trait BelongsToTenant
         static::creating(function ($model) {
             if (!$model->getAttribute(self::$tenantIdColumn) && !$model->relationLoaded('tenant')) {
                 if (tenancy()->initialized) {
-                    $model->setAttribute(self::$tenantIdColumn, tenancy()->getTenantKey());
-                    $model->setRelation('tenant', tenancy()->tenant);
+                    $model->setAttribute(self::$tenantIdColumn, tenant()->getTenantKey());
+                    $model->setRelation('tenant', tenant());
                 }
             }
         });

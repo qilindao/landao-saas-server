@@ -11,9 +11,14 @@ use JoyceZ\LaravelLib\Helpers\ResultHelper;
 
 class Post extends ApiController
 {
-    public function index(Request $request, PostRepo $postRepo): JsonResponse
+    public function __construct(protected PostRepo $postRepo)
     {
-        $ret = $postRepo->getLists($request->all());
+
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        $ret = $this->postRepo->getLists($request->all());
         return $this->success([
             'pagination' => [
                 'total' => $ret['total'],
@@ -27,14 +32,13 @@ class Post extends ApiController
     /**
      * 新增
      * @param PostRequest $request
-     * @param PostRepo $roleRepo
      * @return JsonResponse
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \JoyceZ\LaravelLib\Exceptions\RepositoryException
      */
-    public function store(PostRequest $request, PostRepo $postRepo): JsonResponse
+    public function store(PostRequest $request): JsonResponse
     {
-        $ret = $postRepo->addPost($request->all());
+        $ret = $this->postRepo->addPost($request->all());
         if ($ret['code'] == ResultHelper::CODE_SUCCESS) {
             return $this->success($ret['message']);
         }
@@ -45,14 +49,13 @@ class Post extends ApiController
      * 更新
      * @param int $postId
      * @param PostRequest $request
-     * @param PostRepo $postRepo
      * @return JsonResponse
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \JoyceZ\LaravelLib\Exceptions\RepositoryException
      */
-    public function update(int $postId, PostRequest $request, PostRepo $postRepo): JsonResponse
+    public function update(int $postId, PostRequest $request): JsonResponse
     {
-        $ret = $postRepo->updatePost($postId, $request->all());
+        $ret = $this->postRepo->updatePost($postId, $request->all());
         if ($ret['code'] == ResultHelper::CODE_SUCCESS) {
             return $this->success($ret['message']);
         }
@@ -62,14 +65,13 @@ class Post extends ApiController
     /**
      * 删除
      * @param int $postId
-     * @param PostRepo $postRepo
      * @return JsonResponse
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \JoyceZ\LaravelLib\Exceptions\RepositoryException
      */
-    public function destroy(int $postId, PostRepo $postRepo): JsonResponse
+    public function destroy(int $postId): JsonResponse
     {
-        $ret = $postRepo->deletePost($postId);
+        $ret = $this->postRepo->deletePost($postId);
         if ($ret['code'] == ResultHelper::CODE_SUCCESS) {
             return $this->success($ret['message']);
         }
@@ -80,19 +82,18 @@ class Post extends ApiController
      * 更新某字段
      * @param PostRequest $request
      * @param int $postId
-     * @param PostRepo $postRepo
      * @return JsonResponse
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \JoyceZ\LaravelLib\Exceptions\RepositoryException
      */
-    public function modifyFiled(PostRequest $request, int $postId, PostRepo $postRepo): JsonResponse
+    public function modifyFiled(PostRequest $request, int $postId): JsonResponse
     {
         if ($postId <= 0) {
             return $this->badSuccessRequest('缺少必要的参数');
         }
         $fieldName = (string)$request->post('field_name');
         $fieldValue = $request->post('field_value');
-        $ret = $postRepo->updateSomeField($postId, $fieldName, $fieldValue);
+        $ret = $this->postRepo->updateSomeField($postId, $fieldName, $fieldValue);
         if ($ret['code'] == ResultHelper::CODE_SUCCESS) {
             return $this->success($ret['message']);
         }

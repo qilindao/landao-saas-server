@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\Models\Tenant;
+use App\Services\Models\Tenant\TenantModel;
 use App\Services\Tenancy;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
         //
         $this->app->singleton(Tenancy::class);
 
-        $this->app->bind(Tenant::class, function ($app) {
+        $this->app->bind(TenantModel::class, function ($app) {
             return $app[Tenancy::class]->tenant;
         });
     }

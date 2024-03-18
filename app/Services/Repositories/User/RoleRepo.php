@@ -147,9 +147,7 @@ class RoleRepo extends BaseRepository
     {
         $this->transaction();
         try {
-            if ($this->updateByWhere([
-                'role_id' => $roleId,
-            ], [$fieldName => $fieldValue, 'updated_by' => now()->timestamp])) {
+            if ($this->updateFieldById($roleId, $fieldName, $fieldValue)) {
                 $this->commit();
                 return ResultHelper::success('更新成功');
             }

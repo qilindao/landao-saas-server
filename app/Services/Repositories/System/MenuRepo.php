@@ -95,16 +95,15 @@ class MenuRepo extends BaseRepository
 
     /**
      * 获取菜单和权限
-     * @param array $menuIdsList 权限id
-     * @param bool $isDefault 是否默认租户套餐
      * @return array
      */
-    public function getMenuLists(array $menuIdsList = [], bool $isDefault = false): array
+    public function getMenuLists(): array
     {
-        if ($isDefault) {
+        $tenant = tenancy()->tenant;
+        if ($tenant->is_default) {
             return $this->buildMenu($this->getAllList());
         }
-        $menuIds = array_unique($menuIdsList);
+        $menuIds = array_unique($tenant->menus);
 //        $menuListRet = $this->model->where(function ($query) use ($menuIds) {
 //            if (count($menuIds) > 0) {
 //                $query->whereIn('menu_id', $menuIds);

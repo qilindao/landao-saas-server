@@ -11,9 +11,14 @@ use JoyceZ\LaravelLib\Helpers\ResultHelper;
 
 class Role extends ApiController
 {
-    public function index(Request $request, RoleRepo $roleRepo): JsonResponse
+    public function __construct(protected RoleRepo $roleRepo)
     {
-        $ret = $roleRepo->getLists($request->all());
+
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        $ret = $this->roleRepo->getLists($request->all());
         return $this->success([
             'pagination' => [
                 'total' => $ret['total'],
@@ -27,14 +32,13 @@ class Role extends ApiController
     /**
      * 新增角色
      * @param RoleRequest $request
-     * @param RoleRepo $roleRepo
      * @return JsonResponse
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \JoyceZ\LaravelLib\Exceptions\RepositoryException
      */
-    public function store(RoleRequest $request, RoleRepo $roleRepo): JsonResponse
+    public function store(RoleRequest $request): JsonResponse
     {
-        $ret = $roleRepo->addRole($request->all());
+        $ret = $this->roleRepo->addRole($request->all());
         if ($ret['code'] == ResultHelper::CODE_SUCCESS) {
             return $this->success($ret['message']);
         }
@@ -45,14 +49,13 @@ class Role extends ApiController
      * 更新角色
      * @param int $roleId
      * @param RoleRequest $request
-     * @param RoleRepo $roleRepo
      * @return JsonResponse
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \JoyceZ\LaravelLib\Exceptions\RepositoryException
      */
-    public function update(int $roleId, RoleRequest $request, RoleRepo $roleRepo): JsonResponse
+    public function update(int $roleId, RoleRequest $request): JsonResponse
     {
-        $ret = $roleRepo->updateRole($roleId, $request->all());
+        $ret = $this->roleRepo->updateRole($roleId, $request->all());
         if ($ret['code'] == ResultHelper::CODE_SUCCESS) {
             return $this->success($ret['message']);
         }
@@ -62,14 +65,13 @@ class Role extends ApiController
     /**
      * 删除
      * @param int $roleId
-     * @param RoleRepo $roleRepo
      * @return JsonResponse
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \JoyceZ\LaravelLib\Exceptions\RepositoryException
      */
-    public function destroy(int $roleId, RoleRepo $roleRepo): JsonResponse
+    public function destroy(int $roleId): JsonResponse
     {
-        $ret = $roleRepo->deleteRole($roleId);
+        $ret = $this->roleRepo->deleteRole($roleId);
         if ($ret['code'] == ResultHelper::CODE_SUCCESS) {
             return $this->success($ret['message']);
         }
@@ -80,19 +82,18 @@ class Role extends ApiController
      * 更新某字段
      * @param RoleRequest $request
      * @param int $roleId
-     * @param RoleRepo $roleRepo
      * @return JsonResponse
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \JoyceZ\LaravelLib\Exceptions\RepositoryException
      */
-    public function modifyFiled(RoleRequest $request, int $roleId, RoleRepo $roleRepo): JsonResponse
+    public function modifyFiled(RoleRequest $request, int $roleId): JsonResponse
     {
         if ($roleId <= 0) {
             return $this->badSuccessRequest('缺少必要的参数');
         }
         $fieldName = (string)$request->post('field_name');
         $fieldValue = $request->post('field_value');
-        $ret = $roleRepo->updateSomeField($roleId, $fieldName, $fieldValue);
+        $ret = $this->roleRepo->updateSomeField($roleId, $fieldName, $fieldValue);
         if ($ret['code'] == ResultHelper::CODE_SUCCESS) {
             return $this->success($ret['message']);
         }
