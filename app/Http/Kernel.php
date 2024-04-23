@@ -66,8 +66,5 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'api.case.converter' => ApiCaseConverter::class,//请求和响应驼峰下划线互转
-        'auth.tenant'=>\App\Http\Middleware\TenantPermission::class,//多租户权限
-        'userOperate.log' => \App\Http\Middleware\UserOperateLog::class,//后台操作日志
-
     ];
 }

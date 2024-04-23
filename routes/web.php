@@ -16,8 +16,5 @@ use Illuminate\Support\Str;
 */
 
 Route::get('/', function () {
-    $routes = Route::getRoutes();
-
-    dd($routes);
     return view('welcome');
 });

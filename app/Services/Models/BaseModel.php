@@ -8,4 +8,6 @@ use JoyceZ\LaravelLib\Model\BaseModel as LanDaoModel;
 class BaseModel extends LanDaoModel
 {
     use Cachable;
+
+
 }

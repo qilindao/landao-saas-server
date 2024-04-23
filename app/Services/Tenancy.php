@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Services\Models\Tenant\TenantModel;
 use Illuminate\Database\Eloquent\Builder;
+use Module\Tenant\Models\Tenant\TenantModel;
 
 class Tenancy
 {

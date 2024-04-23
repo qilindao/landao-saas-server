@@ -2,8 +2,8 @@
 
 namespace App\Services\Models\Contracts;
 
-use App\Services\Models\Tenant\TenantModel;
 use App\Services\Models\TenantScope;
+use Module\Tenant\Models\Tenant\TenantModel;
 
 trait BelongsToTenant
 {

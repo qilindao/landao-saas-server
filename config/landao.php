@@ -31,5 +31,8 @@ return [
             'interfaces' => 'Services\\Repositories',
             'enums' => 'Services\\Enums',
         ]
+    ],
+    "module" => [
+        'Tenant'
     ]
 ];
