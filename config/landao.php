@@ -34,5 +34,12 @@ return [
     ],
     "module" => [
         'Tenant'
+    ],
+    "annotation"=>[
+        'inject'=>[
+            'namespaces'=>[
+                "Module"
+            ]
+        ]
     ]
 ];

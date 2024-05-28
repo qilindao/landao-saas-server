@@ -13,6 +13,7 @@
         "genealabs/laravel-model-caching": "^11.0",
         "guzzlehttp/guzzle": "^7.2",
         "joycezhang/laravellib": "^2.4",
+        "landao/laravel-core": "dev-main",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8"
