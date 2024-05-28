@@ -3,6 +3,7 @@
 namespace Module\Tenant\Http\Controllers\V1\User;
 
 use App\Http\Controllers\ApiController;
+use App\Services\Inject;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use JoyceZ\LaravelLib\Helpers\ResultHelper;
@@ -11,10 +12,12 @@ use Module\Tenant\Repositories\User\RoleRepo;
 
 class Role extends ApiController
 {
-    public function __construct(protected RoleRepo $roleRepo)
-    {
-
-    }
+    #[Inject]
+    protected RoleRepo $roleRepo;
+//    public function __construct(protected RoleRepo $roleRepo)
+//    {
+//
+//    }
 
     public function index(Request $request): JsonResponse
     {

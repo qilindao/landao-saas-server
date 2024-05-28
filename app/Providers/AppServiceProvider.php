@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Services\Models\Tenant\TenantModel;
 use App\Services\Tenancy;
 use Illuminate\Support\ServiceProvider;
+use Module\Tenant\Models\Tenant\TenantModel;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
     }
+
 }

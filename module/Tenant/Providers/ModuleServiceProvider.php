@@ -2,7 +2,6 @@
 
 namespace Module\Tenant\Providers;
 
-use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Module\Tenant\Http\Middleware\TenantPermission;
 use Module\Tenant\Http\Middleware\UserOperateLog;
