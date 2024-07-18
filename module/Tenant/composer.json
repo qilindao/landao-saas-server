@@ -1,0 +1,30 @@
+{
+    "name": "landao/tenant",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Module\\Tenant\\": "app/",
+            "Module\\Tenant\\Database\\Factories\\": "database/factories/",
+            "Module\\Tenant\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Module\\Tenant\\Tests\\": "tests/"
+        }
+    }
+}
