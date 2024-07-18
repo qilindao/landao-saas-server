@@ -1,13 +1,20 @@
 {
-    "name": "laravel/laravel",
+    "name": "landao/tenant",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "genealabs/laravel-model-caching": "^11.0",
+        "landao/laravel-core": "^1.0",
         "laravel/framework": "^11.9",
-        "laravel/tinker": "^2.9"
+        "laravel/sanctum": "^4.0",
+        "laravel/tinker": "^2.9",
+        "nwidart/laravel-modules": "^11.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -20,9 +27,13 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "Module\\": "module/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -49,6 +60,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "merge-plugin": {
+            "include": [
+                "module/*/composer.json"
+            ]
         }
     },
     "config": {
