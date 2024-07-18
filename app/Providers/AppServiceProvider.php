@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\Tenancy;
 use Illuminate\Support\ServiceProvider;
+use Module\Tenant\Models\Tenant\TenantModel;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->registerTenancy();
     }
 
     /**
@@ -20,5 +22,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    /**
+     * 注册租户相关服务
+     * @return void
+     */
+    private function registerTenancy(): void
+    {
+        $this->app->singleton(Tenancy::class);
+        $this->app->bind(TenantModel::class, function ($app) {
+            return $app[Tenancy::class]->tenant;
+        });
     }
 }
