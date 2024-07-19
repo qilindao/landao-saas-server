@@ -6,6 +6,7 @@ namespace Module\Tenant\Repositories\User;
 use Illuminate\Support\Facades\Crypt;
 use LanDao\LaravelCore\Helpers\ResultHelper;
 use LanDao\LaravelCore\Repositories\BaseRepository;
+use LanDao\LaravelCore\Security\AopCryptoJs;
 use LanDao\LaravelCore\Security\AopSecurity;
 use Module\Tenant\Enums\User\UserStatusEnum;
 use Module\Tenant\Models\User\UserModel;
@@ -57,7 +58,7 @@ class UserRepo extends BaseRepository
         //临时修改可见属性，用于校验登录密码
         $userInfo = $user->makeVisible(['password', 'pwd_salt'])->toArray();
         //将前端加密的密码进行解密
-        $password = $pwd;//(new CryptoJsSup($captchaUniq))->decrypt($pwd);
+        $password = (new AopCryptoJs($captchaUniq))->decrypt($pwd);
         //密码验证
 //        $pwdFlag = (new AopPassword())
 //            ->withSalt()
